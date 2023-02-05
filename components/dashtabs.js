@@ -14,6 +14,11 @@ export default function DashTabs(props) {
       name: 'Student Name',
       selector: row => row['student-name'],
       dashedName: 'student-name'
+    },
+    {
+      name: 'Student Progress',
+      selector: row => row['student-progress'],
+      dashedName: 'student-progress'
     }
   ];
   let columns = columnNames.map(x => {

@@ -37,7 +37,10 @@ export default function DashTable(props) {
     let certificationCompletionData = columns.map(course => {
       let courseSelector = course.dashedName;
       // If the course selector is not the student's name, calculate their scores.
-      if (courseSelector != 'student-name') {
+      if (
+        courseSelector != 'student-name' &&
+        courseSelector != 'student-progress'
+      ) {
         /* 
         The try/catch below checks to see if the current student has completed any part of the current course.
         This is important because if they have not, we hit an undefined error, causing the dashboard to crash.
@@ -61,7 +64,13 @@ export default function DashTable(props) {
           }`;
         }
       } else {
-        studentCompletionData[courseSelector] = studentName;
+        if (courseSelector == 'student-name') {
+          studentCompletionData[courseSelector] = studentName;
+        } else if (courseSelector == 'student-progress') {
+          studentCompletionData[courseSelector] = 'in progress...';
+        } else {
+          studentCompletionData[courseSelector] = '(Empty)';
+        }
       }
       // This ensures we only return when everything is completely filled up.
       if (Object.keys(studentCompletionData).length == columns.length) {
